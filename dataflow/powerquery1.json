@@ -1,0 +1,20 @@
+{
+	"name": "powerquery1",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "DelimitedText1",
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~>  DelimitedText1",
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				}
+			],
+			"script": "section Section1;\r\nshared DelimitedText1 = let AdfDoc = AzureStorage.BlobContents(\"https://tianyoustorage.blob.core.windows.net/adftutorial/input/emp.txt\"),Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]) in Csv;\r\nshared UserQuery = let Source = #\"DelimitedText1\" in Source;\r\n",
+			"documentLocale": "en-us"
+		}
+	}
+}
